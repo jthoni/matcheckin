@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4D257365-57D1-45D2-BC93-AF240CBF89E2}</ProjectGuid>
+    <ProjectGuid>{F6A5AFE6-2D73-4299-882D-DCD7AFE52CA8}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Move_a_Thon_Checkin</RootNamespace>
-    <AssemblyName>Move-a-Thon_Checkin</AssemblyName>
+    <RootNamespace>matApi</RootNamespace>
+    <AssemblyName>matApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -38,7 +38,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,20 +66,80 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="controllers\MainCtrl.js" />
-    <Content Include="controllers\matAppCtrl.js" />
-    <Content Include="demo.html" />
-    <Content Include="homeView.html" />
-    <Content Include="lib\css\demo.css" />
-    <Content Include="lib\fonts\fontawesome-webfont.eot" />
-    <Content Include="lib\fonts\fontawesome-webfont.ttf" />
-    <Content Include="lib\fonts\fontawesome-webfont.woff" />
-    <Content Include="lib\fonts\fontawesome-webfont.woff2" />
-    <Content Include="lib\js\demo.js" />
-    <Content Include="lib\js\mobile-angular-ui.core.min.js.map" />
-    <Content Include="lib\js\mobile-angular-ui.gestures.min.js.map" />
-    <Content Include="lib\js\mobile-angular-ui.migrate.min.js.map" />
-    <Content Include="lib\js\mobile-angular-ui.min.js.map" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Class.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FlatFile.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MATDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MATDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MATDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MATDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MATDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Student.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentList.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Teacher.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <EntityDeploy Include="Models\MATDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MATDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MATDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MATDataModel.edmx</DependentUpon>
+      <LastGenOutput>MATDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MATDataModel.edmx.diagram">
+      <DependentUpon>MATDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\MATDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MATDataModel.edmx</DependentUpon>
+      <LastGenOutput>MATDataModel.cs</LastGenOutput>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -79,32 +148,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app_start\app.js" />
-    <Content Include="index.html" />
-    <Content Include="lib\css\mobile-angular-ui-base.css" />
-    <Content Include="lib\css\mobile-angular-ui-base.min.css" />
-    <Content Include="lib\css\mobile-angular-ui-desktop.css" />
-    <Content Include="lib\css\mobile-angular-ui-desktop.min.css" />
-    <Content Include="lib\css\mobile-angular-ui-hover.css" />
-    <Content Include="lib\css\mobile-angular-ui-hover.min.css" />
-    <Content Include="lib\css\mobile-angular-ui-migrate.css" />
-    <Content Include="lib\css\mobile-angular-ui-migrate.min.css" />
-    <Content Include="lib\fonts\fontawesome-webfont.svg" />
-    <Content Include="lib\js\mobile-angular-ui.core.js" />
-    <Content Include="lib\js\mobile-angular-ui.core.min.js" />
-    <Content Include="lib\js\mobile-angular-ui.gestures.js" />
-    <Content Include="lib\js\mobile-angular-ui.gestures.min.js" />
-    <Content Include="lib\js\mobile-angular-ui.js" />
-    <Content Include="lib\js\mobile-angular-ui.migrate.js" />
-    <Content Include="lib\js\mobile-angular-ui.migrate.min.js" />
-    <Content Include="lib\js\mobile-angular-ui.min.js" />
-    <Content Include="storage.html" />
-    <Content Include="Web.config" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -118,9 +166,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51255</DevelopmentServerPort>
+          <DevelopmentServerPort>53634</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51255/</IISUrl>
+          <IISUrl>http://localhost:53634/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
