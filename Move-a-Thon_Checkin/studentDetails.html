@@ -1,0 +1,38 @@
+﻿<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="list-group text-center">
+            <div class="list-group-item list-group-item-home" ng-controller="detailsCtrl">
+                <h1>
+                    {{selectedStudent.FirstName}} {{selectedStudent.LastName}}
+                </h1>
+
+                <table class="table-responsive table table-striped table-condensed table-hover" align="center" style="width:50%;">
+                    <tr align="center">
+                        <th align="center">
+                            Morning Teacher
+                        </th>
+                        <th align="center">
+                            Grade
+                        </th>
+                        <th align="center">
+                            Language
+                        </th>
+                    </tr>
+                    <tr align="center">
+                        <td align="center">
+                            {{selectedStudent.TeacherAM}}
+                        </td>
+                        <td align="center">
+                            {{selectedStudent.Grade}}
+                        </td>
+                        <td align="center">
+                            {{selectedStudent.Language}}
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>

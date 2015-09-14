@@ -11,6 +11,8 @@
           </Key>
           <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassCode" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Grade" Type="nvarchar" MaxLength="10" />
+          <Property Name="Language" Type="varchar" MaxLength="50" />
           <Property Name="AMTeacherID" Type="int" />
           <Property Name="PMTeacherID" Type="int" />
         </EntityType>
@@ -46,13 +48,15 @@
           <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="StudentList">
+warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vStudentList">
           <Key>
+            <PropertyRef Name="StudentID" />
             <PropertyRef Name="FirstName" />
             <PropertyRef Name="LastName" />
             <PropertyRef Name="ClassCode" />
           </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ClassCode" Type="varchar" MaxLength="255" Nullable="false" />
@@ -60,20 +64,67 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
           <Property Name="TeacherPM" Type="varchar" MaxLength="255" />
           <Property Name="Notes" Type="varchar" MaxLength="255" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'StudentDirectory2015.dbo.vTeachersAM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vTeachersAM">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'StudentDirectory2015.dbo.vTeachersPM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vTeachersPM">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Function Name="procGetStudentsByGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Grade" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="procGetStudentsByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="studentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procGetStudentsByLangGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Lang" Type="nvarchar" Mode="In" />
+          <Parameter Name="Grade" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="procGetStudentsByTeacherID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeacherID" Type="int" Mode="In" />
+          <Parameter Name="AM" Type="bit" Mode="In" />
+        </Function>
         <EntityContainer Name="StudentDirectory2015ModelStoreContainer">
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FlatFile" EntityType="Self.FlatFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StudentList" EntityType="Self.StudentList" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="vStudentList" EntityType="Self.vStudentList" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [StudentList].[FirstName] AS [FirstName], 
-    [StudentList].[LastName] AS [LastName], 
-    [StudentList].[ClassCode] AS [ClassCode], 
-    [StudentList].[TeacherAM] AS [TeacherAM], 
-    [StudentList].[TeacherPM] AS [TeacherPM], 
-    [StudentList].[Notes] AS [Notes]
-    FROM [dbo].[StudentList] AS [StudentList]</DefiningQuery>
+    [vStudentList].[StudentID] AS [StudentID], 
+    [vStudentList].[FirstName] AS [FirstName], 
+    [vStudentList].[LastName] AS [LastName], 
+    [vStudentList].[ClassCode] AS [ClassCode], 
+    [vStudentList].[TeacherAM] AS [TeacherAM], 
+    [vStudentList].[TeacherPM] AS [TeacherPM], 
+    [vStudentList].[Notes] AS [Notes]
+    FROM [dbo].[vStudentList] AS [vStudentList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vTeachersAM" EntityType="Self.vTeachersAM" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vTeachersAM].[TeacherID] AS [TeacherID], 
+    [vTeachersAM].[FullName] AS [FullName]
+    FROM [dbo].[vTeachersAM] AS [vTeachersAM]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vTeachersPM" EntityType="Self.vTeachersPM" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vTeachersPM].[TeacherID] AS [TeacherID], 
+    [vTeachersPM].[FullName] AS [FullName]
+    FROM [dbo].[vTeachersPM] AS [vTeachersPM]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -88,6 +139,8 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
           <Property Name="ClassCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AMTeacherID" Type="Int32" />
           <Property Name="PMTeacherID" Type="Int32" />
+          <Property Name="Grade" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FlatFile">
           <Key>
@@ -125,13 +178,30 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
           <EntitySet Name="FlatFiles" EntityType="Self.FlatFile" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
-          <EntitySet Name="StudentLists" EntityType="StudentDirectory2015Model.StudentList" />
+          <EntitySet Name="vStudentLists" EntityType="StudentDirectory2015Model.vStudentList" />
+          <EntitySet Name="vTeachersAMs" EntityType="StudentDirectory2015Model.vTeachersAM" />
+          <EntitySet Name="vTeachersPMs" EntityType="StudentDirectory2015Model.vTeachersPM" />
+          <FunctionImport Name="procGetStudentsByGrade" ReturnType="Collection(StudentDirectory2015Model.procGetStudentsByGrade_Result)">
+          <Parameter Name="Grade" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="procGetStudentsByLangGrade" ReturnType="Collection(StudentDirectory2015Model.procGetStudentsByLangGrade_Result)">
+            <Parameter Name="Lang" Mode="In" Type="String" />
+            <Parameter Name="Grade" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="procGetStudentsByTeacherID" ReturnType="Collection(StudentDirectory2015Model.procGetStudentsByTeacherID_Result)">
+            <Parameter Name="TeacherID" Mode="In" Type="Int32" />
+            <Parameter Name="AM" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="procGetStudentsByID" ReturnType="Collection(StudentDirectory2015Model.procGetStudentsByID_Result)">
+          <Parameter Name="studentID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="StudentList">
+        <EntityType Name="vStudentList">
           <Key>
             <PropertyRef Name="FirstName" />
             <PropertyRef Name="LastName" />
             <PropertyRef Name="ClassCode" />
+            <PropertyRef Name="StudentID" />
           </Key>
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -139,7 +209,64 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
           <Property Name="TeacherAM" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TeacherPM" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="vTeachersAM">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vTeachersPM">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="procGetStudentsByGrade_Result">
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassCode" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Grade" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Language" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="procGetStudentsByLangGrade_Result">
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassCode" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Grade" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Language" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="procGetStudentsByTeacherID_Result">
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="ClassID" Nullable="false" />
+          <Property Type="String" Name="ClassCode" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Grade" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Language" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="TeacherID" Nullable="false" />
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="procGetStudentsByID_Result">
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ClassCode" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="TeacherAM" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="TeacherPM" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Grade" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Language" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -149,6 +276,8 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="StudentDirectory2015Model.Class">
               <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
                 <ScalarProperty Name="AMTeacherID" ColumnName="AMTeacherID" />
@@ -190,9 +319,10 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StudentLists">
-            <EntityTypeMapping TypeName="StudentDirectory2015Model.StudentList">
-              <MappingFragment StoreEntitySet="StudentList">
+          <EntitySetMapping Name="vStudentLists">
+            <EntityTypeMapping TypeName="StudentDirectory2015Model.vStudentList">
+              <MappingFragment StoreEntitySet="vStudentList">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="TeacherPM" ColumnName="TeacherPM" />
                 <ScalarProperty Name="TeacherAM" ColumnName="TeacherAM" />
@@ -202,6 +332,78 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.StudentList' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vTeachersAMs">
+            <EntityTypeMapping TypeName="StudentDirectory2015Model.vTeachersAM">
+              <MappingFragment StoreEntitySet="vTeachersAM">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vTeachersPMs">
+            <EntityTypeMapping TypeName="StudentDirectory2015Model.vTeachersPM">
+              <MappingFragment StoreEntitySet="vTeachersPM">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="procGetStudentsByGrade" FunctionName="StudentDirectory2015Model.Store.procGetStudentsByGrade">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StudentDirectory2015Model.procGetStudentsByGrade_Result">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="procGetStudentsByLangGrade" FunctionName="StudentDirectory2015Model.Store.procGetStudentsByLangGrade">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StudentDirectory2015Model.procGetStudentsByLangGrade_Result">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="procGetStudentsByTeacherID" FunctionName="StudentDirectory2015Model.Store.procGetStudentsByTeacherID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StudentDirectory2015Model.procGetStudentsByTeacherID_Result">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="procGetStudentsByID" FunctionName="StudentDirectory2015Model.Store.procGetStudentsByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StudentDirectory2015Model.procGetStudentsByID_Result">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="TeacherAM" ColumnName="TeacherAM" />
+                <ScalarProperty Name="TeacherPM" ColumnName="TeacherPM" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

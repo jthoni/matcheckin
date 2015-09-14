@@ -12,6 +12,8 @@ namespace matApi.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class StudentDirectory2015Entities : DbContext
     {
@@ -29,6 +31,52 @@ namespace matApi.Models
         public virtual DbSet<FlatFile> FlatFiles { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
-        public virtual DbSet<StudentList> StudentLists { get; set; }
+        public virtual DbSet<vStudentList> vStudentLists { get; set; }
+        public virtual DbSet<vTeachersAM> vTeachersAMs { get; set; }
+        public virtual DbSet<vTeachersPM> vTeachersPMs { get; set; }
+    
+        public virtual ObjectResult<procGetStudentsByGrade_Result> procGetStudentsByGrade(string grade)
+        {
+            var gradeParameter = grade != null ?
+                new ObjectParameter("Grade", grade) :
+                new ObjectParameter("Grade", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<procGetStudentsByGrade_Result>("procGetStudentsByGrade", gradeParameter);
+        }
+    
+        public virtual ObjectResult<procGetStudentsByLangGrade_Result> procGetStudentsByLangGrade(string lang, string grade)
+        {
+            var langParameter = lang != null ?
+                new ObjectParameter("Lang", lang) :
+                new ObjectParameter("Lang", typeof(string));
+    
+            var gradeParameter = grade != null ?
+                new ObjectParameter("Grade", grade) :
+                new ObjectParameter("Grade", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<procGetStudentsByLangGrade_Result>("procGetStudentsByLangGrade", langParameter, gradeParameter);
+        }
+    
+        public virtual ObjectResult<procGetStudentsByTeacherID_Result> procGetStudentsByTeacherID(Nullable<int> teacherID, Nullable<bool> aM)
+        {
+            var teacherIDParameter = teacherID.HasValue ?
+                new ObjectParameter("TeacherID", teacherID) :
+                new ObjectParameter("TeacherID", typeof(int));
+    
+            var aMParameter = aM.HasValue ?
+                new ObjectParameter("AM", aM) :
+                new ObjectParameter("AM", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<procGetStudentsByTeacherID_Result>("procGetStudentsByTeacherID", teacherIDParameter, aMParameter);
+        }
+    
+        public virtual ObjectResult<procGetStudentsByID_Result> procGetStudentsByID(Nullable<int> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("studentID", studentID) :
+                new ObjectParameter("studentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<procGetStudentsByID_Result>("procGetStudentsByID", studentIDParameter);
+        }
     }
 }

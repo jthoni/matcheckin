@@ -57,9 +57,58 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="byteacherAM.html" />
+    <Content Include="byteacherPM.html" />
+    <Content Include="controllers\byTeacherCtrl.js" />
     <Content Include="controllers\MainCtrl.js" />
     <Content Include="controllers\matAppCtrl.js" />
+    <Content Include="controllers\studentCtrl.js" />
+    <Content Include="controllers\studentDetailsCtrl.js" />
+    <Content Include="controllers\teacherCtrl.js" />
     <Content Include="demo.html" />
+    <Content Include="demo\accordion.html" />
+    <Content Include="demo\carousel.html" />
+    <Content Include="demo\demo.css" />
+    <Content Include="demo\demo.js" />
+    <Content Include="demo\drag.html" />
+    <Content Include="demo\drag2.html" />
+    <Content Include="demo\dropdown.html" />
+    <Content Include="demo\favicon.png" />
+    <Content Include="demo\forms.html" />
+    <Content Include="demo\home.html" />
+    <Content Include="demo\img\1.jpg" />
+    <Content Include="demo\img\2.jpg" />
+    <Content Include="demo\img\3.jpg" />
+    <Content Include="demo\img\4.jpg" />
+    <Content Include="demo\img\5.jpg" />
+    <Content Include="demo\index.html" />
+    <Content Include="demo\modal1.html" />
+    <Content Include="demo\modal2.html" />
+    <Content Include="demo\overlay.html" />
+    <Content Include="demo\scroll.html" />
+    <Content Include="demo\sidebar.html" />
+    <Content Include="demo\sidebarRight.html" />
+    <Content Include="demo\swipe.html" />
+    <Content Include="demo\tabs.html" />
+    <Content Include="demo\toggle.html" />
+    <Content Include="demo\touch.html" />
+    <Content Include="dist\css\mobile-angular-ui-base.css" />
+    <Content Include="dist\css\mobile-angular-ui-base.min.css" />
+    <Content Include="dist\css\mobile-angular-ui-desktop.css" />
+    <Content Include="dist\css\mobile-angular-ui-desktop.min.css" />
+    <Content Include="dist\css\mobile-angular-ui-hover.css" />
+    <Content Include="dist\css\mobile-angular-ui-hover.min.css" />
+    <Content Include="dist\css\mobile-angular-ui-migrate.css" />
+    <Content Include="dist\css\mobile-angular-ui-migrate.min.css" />
+    <Content Include="dist\fonts\fontawesome-webfont.svg" />
+    <Content Include="dist\js\mobile-angular-ui.core.js" />
+    <Content Include="dist\js\mobile-angular-ui.core.min.js" />
+    <Content Include="dist\js\mobile-angular-ui.gestures.js" />
+    <Content Include="dist\js\mobile-angular-ui.gestures.min.js" />
+    <Content Include="dist\js\mobile-angular-ui.js" />
+    <Content Include="dist\js\mobile-angular-ui.migrate.js" />
+    <Content Include="dist\js\mobile-angular-ui.migrate.min.js" />
+    <Content Include="dist\js\mobile-angular-ui.min.js" />
     <Content Include="homeView.html" />
     <Content Include="lib\css\demo.css" />
     <Content Include="lib\fonts\fontawesome-webfont.eot" />
@@ -71,6 +120,14 @@
     <Content Include="lib\js\mobile-angular-ui.gestures.min.js.map" />
     <Content Include="lib\js\mobile-angular-ui.migrate.min.js.map" />
     <Content Include="lib\js\mobile-angular-ui.min.js.map" />
+    <Content Include="dist\fonts\fontawesome-webfont.eot" />
+    <Content Include="dist\fonts\fontawesome-webfont.ttf" />
+    <Content Include="dist\fonts\fontawesome-webfont.woff" />
+    <Content Include="dist\fonts\fontawesome-webfont.woff2" />
+    <Content Include="dist\js\mobile-angular-ui.core.min.js.map" />
+    <Content Include="dist\js\mobile-angular-ui.gestures.min.js.map" />
+    <Content Include="dist\js\mobile-angular-ui.migrate.min.js.map" />
+    <Content Include="dist\js\mobile-angular-ui.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -98,13 +155,26 @@
     <Content Include="lib\js\mobile-angular-ui.migrate.js" />
     <Content Include="lib\js\mobile-angular-ui.migrate.min.js" />
     <Content Include="lib\js\mobile-angular-ui.min.js" />
+    <Content Include="resources\logo.png" />
+    <Content Include="scroll.html" />
+    <Content Include="services\studentService.js" />
+    <Content Include="services\teacherService.js" />
+    <Content Include="sidebar.html" />
+    <Content Include="SQL\ClassList_Generation_Script.sql" />
     <Content Include="storage.html" />
+    <Content Include="bystudentname.html" />
+    <Content Include="studentDetails.html" />
+    <Content Include="studentsByAM.html" />
+    <Content Include="studentsbyPM.html" />
+    <Content Include="test.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_GlobalResources\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

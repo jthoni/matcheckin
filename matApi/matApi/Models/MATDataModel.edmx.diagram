@@ -9,7 +9,9 @@
         <EntityTypeShape EntityType="StudentDirectory2015Model.FlatFile" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentDirectory2015Model.Student" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StudentDirectory2015Model.Teacher" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="StudentDirectory2015Model.StudentList" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="StudentDirectory2015Model.vStudentList" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="StudentDirectory2015Model.vTeachersAM" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="StudentDirectory2015Model.vTeachersPM" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

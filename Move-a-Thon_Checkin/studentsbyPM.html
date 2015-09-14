@@ -1,0 +1,24 @@
+﻿<div style="background-color:white">
+    <div class="scrollable" ui-state="searchBar">
+        <input ng-if="Ui.active('searchBar')"
+               type="search"
+               class="form-control scrollable-header"
+               placeholder="Search.." />
+
+        <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+            <div class="list-group" ng-controller="byTeacherPMCtrl">
+                <a ng-repeat="student in studentsByTeacherPM" class="list-group-item" ng-href="#/studentDetails/{{student.StudentID}}">
+                    {{ student.LastName }}, {{ student.FirstName }}<i class="fa fa-chevron-right pull-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
+            <i class="fa fa-search"></i>
+            <span ui-hide="searchBar">Show</span>
+            <span ui-show="searchBar">Hide</span>
+            Search Bar
+        </a>
+    </div>
+
+</div>

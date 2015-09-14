@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ControllerAttributes.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -110,13 +111,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MATDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\procGetStudentsByGrade_Result.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\procGetStudentsByID_Result.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\procGetStudentsByLangGrade_Result.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\procGetStudentsByTeacherID_Result.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Student.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentList.cs">
+    <Compile Include="Models\Teacher.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Teacher.cs">
+    <Compile Include="Models\vStudentList.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vTeachersAM.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vTeachersPM.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,15 +10,15 @@
 namespace matApi.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Class
+    public partial class procGetStudentsByGrade_Result
     {
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
         public int ClassID { get; set; }
         public string ClassCode { get; set; }
-        public Nullable<int> AMTeacherID { get; set; }
-        public Nullable<int> PMTeacherID { get; set; }
         public string Grade { get; set; }
         public string Language { get; set; }
+        public int StudentID { get; set; }
     }
 }

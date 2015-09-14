@@ -12,7 +12,7 @@ namespace matApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentList
+    public partial class vStudentList
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -20,5 +20,6 @@ namespace matApi.Models
         public string TeacherAM { get; set; }
         public string TeacherPM { get; set; }
         public string Notes { get; set; }
+        public int StudentID { get; set; }
     }
 }
