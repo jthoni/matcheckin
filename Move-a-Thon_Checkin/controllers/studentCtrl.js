@@ -4,6 +4,7 @@
     $scope.student;
     $scope.scopeTest = "This is the message from scopeTest";
     $rootScope.rootTest = "This is on the root";
+    $scope.operationRunning = true;
 
     // Needed for the loading screen
     $rootScope.$on('$routeChangeStart', function () {

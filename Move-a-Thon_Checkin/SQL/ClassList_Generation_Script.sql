@@ -310,9 +310,9 @@ JOIN Classes C
 
 /******* Check in status ********/
 
---DROP VIEW CheckInStatus
+--DROP VIEW vCInStatus
  /*
-CREATE VIEW CheckInStatus AS
+CREATE VIEW vCInStatus AS
 SELECT 
 	CI.StudentID
 	,S.FirstName

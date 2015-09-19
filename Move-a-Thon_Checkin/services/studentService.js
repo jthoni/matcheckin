@@ -53,4 +53,21 @@
 
         return deferredStudent.promise;
     };
+
+    this.getStudentCIStatus = function studentService$getStudentCIStatus(studentID) {
+        var deferredCI = $q.defer();
+
+        // pull the list of students from the view
+        $http.get(configs.WEB_API_URL + 'api/Student/GetStudentCheckInInfo/' + studentID)
+            .success(function (data) {
+                // With the data succesfully returned, we can resolve promise and we can access it in controller
+                deferredCI.resolve(data);
+            })
+            .error(function (data) {
+                //let the function caller know the error
+                deferredCI.reject(data);
+            });
+
+        return deferredCI.promise;
+    };
 }]);

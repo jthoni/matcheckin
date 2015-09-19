@@ -34,6 +34,8 @@ namespace matApi.Models
         public virtual DbSet<vStudentList> vStudentLists { get; set; }
         public virtual DbSet<vTeachersAM> vTeachersAMs { get; set; }
         public virtual DbSet<vTeachersPM> vTeachersPMs { get; set; }
+        public virtual DbSet<CheckIn> CheckIns { get; set; }
+        public virtual DbSet<vCInStatu> vCInStatus { get; set; }
     
         public virtual ObjectResult<procGetStudentsByGrade_Result> procGetStudentsByGrade(string grade)
         {
@@ -77,6 +79,27 @@ namespace matApi.Models
                 new ObjectParameter("studentID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<procGetStudentsByID_Result>("procGetStudentsByID", studentIDParameter);
+        }
+    
+        public virtual int procStudentCheckIn(Nullable<int> studentID, string shirtSize, string notes, string checkInBy)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(int));
+    
+            var shirtSizeParameter = shirtSize != null ?
+                new ObjectParameter("ShirtSize", shirtSize) :
+                new ObjectParameter("ShirtSize", typeof(string));
+    
+            var notesParameter = notes != null ?
+                new ObjectParameter("Notes", notes) :
+                new ObjectParameter("Notes", typeof(string));
+    
+            var checkInByParameter = checkInBy != null ?
+                new ObjectParameter("CheckInBy", checkInBy) :
+                new ObjectParameter("CheckInBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("procStudentCheckIn", studentIDParameter, shirtSizeParameter, notesParameter, checkInByParameter);
         }
     }
 }

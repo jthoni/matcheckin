@@ -90,6 +90,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckIn.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Class.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
@@ -127,6 +130,9 @@
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Teacher.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vCInStatu.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vStudentList.cs">

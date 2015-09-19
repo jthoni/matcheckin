@@ -57,9 +57,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="byGrade.html" />
     <Content Include="byteacherAM.html" />
     <Content Include="byteacherPM.html" />
     <Content Include="controllers\byTeacherCtrl.js" />
+    <Content Include="controllers\gradeLangCtrl.js" />
     <Content Include="controllers\MainCtrl.js" />
     <Content Include="controllers\matAppCtrl.js" />
     <Content Include="controllers\studentCtrl.js" />
@@ -155,6 +157,7 @@
     <Content Include="lib\js\mobile-angular-ui.migrate.js" />
     <Content Include="lib\js\mobile-angular-ui.migrate.min.js" />
     <Content Include="lib\js\mobile-angular-ui.min.js" />
+    <Content Include="login.html" />
     <Content Include="resources\logo.png" />
     <Content Include="scroll.html" />
     <Content Include="services\studentService.js" />

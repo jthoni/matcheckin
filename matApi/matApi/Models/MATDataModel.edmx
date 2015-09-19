@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="StudentDirectory2015Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CheckIn">
+          <Key>
+            <PropertyRef Name="CheckInID" />
+          </Key>
+          <Property Name="CheckInID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="ShirtSize" Type="nvarchar" MaxLength="10" />
+          <Property Name="CheckInTime" Type="smalldatetime" />
+          <Property Name="Notes" Type="varchar" MaxLength="255" />
+          <Property Name="CheckInBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Classes">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -46,6 +57,22 @@
           </Key>
           <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'StudentDirectory2015.dbo.vCInStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vCInStatus">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ShirtSize" Type="nvarchar" MaxLength="10" />
+          <Property Name="CheckInBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckInTime" Type="smalldatetime" />
+          <Property Name="Notes" Type="varchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -98,11 +125,29 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vTeachersPM' does not hav
           <Parameter Name="TeacherID" Type="int" Mode="In" />
           <Parameter Name="AM" Type="bit" Mode="In" />
         </Function>
+        <Function Name="procStudentCheckIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="int" Mode="In" />
+          <Parameter Name="ShirtSize" Type="nvarchar" Mode="In" />
+          <Parameter Name="Notes" Type="varchar" Mode="In" />
+          <Parameter Name="CheckInBy" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="StudentDirectory2015ModelStoreContainer">
+          <EntitySet Name="CheckIn" EntityType="Self.CheckIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FlatFile" EntityType="Self.FlatFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vCInStatus" EntityType="Self.vCInStatus" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vCInStatus].[StudentID] AS [StudentID], 
+    [vCInStatus].[FirstName] AS [FirstName], 
+    [vCInStatus].[LastName] AS [LastName], 
+    [vCInStatus].[ShirtSize] AS [ShirtSize], 
+    [vCInStatus].[CheckInBy] AS [CheckInBy], 
+    [vCInStatus].[CheckInTime] AS [CheckInTime], 
+    [vCInStatus].[Notes] AS [Notes]
+    FROM [dbo].[vCInStatus] AS [vCInStatus]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vStudentList" EntityType="Self.vStudentList" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vStudentList].[StudentID] AS [StudentID], 
@@ -195,6 +240,14 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vTeachersPM' does not hav
           <FunctionImport Name="procGetStudentsByID" ReturnType="Collection(StudentDirectory2015Model.procGetStudentsByID_Result)">
           <Parameter Name="studentID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="CheckIns" EntityType="StudentDirectory2015Model.CheckIn" />
+          <EntitySet Name="vCInStatus" EntityType="StudentDirectory2015Model.vCInStatu" />
+          <FunctionImport Name="procStudentCheckIn">
+            <Parameter Name="StudentID" Mode="In" Type="Int32" />
+            <Parameter Name="ShirtSize" Mode="In" Type="String" />
+            <Parameter Name="Notes" Mode="In" Type="String" />
+            <Parameter Name="CheckInBy" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="vStudentList">
           <Key>
@@ -267,6 +320,31 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vTeachersPM' does not hav
           <Property Type="String" Name="Grade" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Language" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="CheckIn">
+          <Key>
+            <PropertyRef Name="CheckInID" />
+          </Key>
+          <Property Name="CheckInID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="ShirtSize" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CheckInTime" Type="DateTime" Precision="0" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CheckInBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vCInStatu">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ShirtSize" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CheckInBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckInTime" Type="DateTime" Precision="0" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -404,6 +482,32 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vTeachersPM' does not hav
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CheckIns">
+            <EntityTypeMapping TypeName="StudentDirectory2015Model.CheckIn">
+              <MappingFragment StoreEntitySet="CheckIn">
+                <ScalarProperty Name="CheckInBy" ColumnName="CheckInBy" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+                <ScalarProperty Name="ShirtSize" ColumnName="ShirtSize" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="CheckInID" ColumnName="CheckInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vCInStatus">
+            <EntityTypeMapping TypeName="StudentDirectory2015Model.vCInStatu">
+              <MappingFragment StoreEntitySet="vCInStatus">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+                <ScalarProperty Name="CheckInBy" ColumnName="CheckInBy" />
+                <ScalarProperty Name="ShirtSize" ColumnName="ShirtSize" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="procStudentCheckIn" FunctionName="StudentDirectory2015Model.Store.procStudentCheckIn" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

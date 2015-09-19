@@ -5,31 +5,56 @@
                 <h1>
                     {{selectedStudent.FirstName}} {{selectedStudent.LastName}}
                 </h1>
-
-                <table class="table-responsive table table-striped table-condensed table-hover" align="center" style="width:50%;">
-                    <tr align="center">
-                        <th align="center">
-                            Morning Teacher
-                        </th>
-                        <th align="center">
-                            Grade
-                        </th>
-                        <th align="center">
-                            Language
-                        </th>
+                <table class="table-responsive table table-striped table-condensed table-hover" align="center" style="width:30%;">
+                    <tr>
+                        <td>
+                            <b>Morning Teacher</b>
+                        </td>
+                        <td>
+                            <b>Grade</b>
+                        </td>
+                        <td>
+                            <b>Language</b>
+                        </td>
                     </tr>
-                    <tr align="center">
-                        <td align="center">
+                    <tr>
+                        <td>
                             {{selectedStudent.TeacherAM}}
                         </td>
-                        <td align="center">
+                        <td>
                             {{selectedStudent.Grade}}
                         </td>
-                        <td align="center">
+                        <td>
                             {{selectedStudent.Language}}
                         </td>
                     </tr>
                 </table>
+
+                <!-- Not Checked In (i.e. show check in option) -->
+                <div ng-show="checkedIn">
+                    <table border="1" align="center">
+                        <tr>
+                            <td>Checked in at</td>
+                            <td>{{checkInDetails.CheckInTime | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                        </tr>
+                        <tr>
+                            <td>Shirt Size</td>
+                            <td>{{checkInDetails.ShirtSize}}</td>
+                        </tr>
+                        <tr>
+                            <td>Checked in by</td>
+                            <td>{{checkInDetails.CheckInBy}}</td>
+                        </tr>                        
+                    </table>
+                </div>
+
+                <!-- Checked in, show info -->
+                <div ng-hide="checkedIn">
+                    <h2>Check In!</h2>
+                    <div>
+                        <img src="resources/check-mark-md.png" style="width:250px" />
+                    </div>
+                </div>
 
             </div>
 

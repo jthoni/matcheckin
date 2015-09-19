@@ -72,8 +72,14 @@ namespace matApi.Controllers
             List<procGetStudentsByLangGrade_Result> results = studenDb.procGetStudentsByLangGrade(lang, grade).ToList();
             var ordered = results.OrderBy(x => x.LastName).ThenBy(x => x.FirstName).ToList();
             return ordered;
+        }
+
+        [Route("api/Student/GetStudentCheckInInfo/{studentID}")]
+        public IQueryable<vCInStatu> GetStudentCheckInInfo(int studentID)
+        {
+            var results = studenDb.vCInStatus.Where(s => s.StudentID == studentID);
+            return results;
         } 
     }
-
    
 }
