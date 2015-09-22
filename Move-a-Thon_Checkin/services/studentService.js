@@ -54,6 +54,24 @@
         return deferredStudent.promise;
     };
 
+    this.getStudentByLangGrade = function studentService$getStudentByLangGrade(lang, grade) {
+
+        var deferredLangGrade = $q.defer();
+
+        // pull the list of students from the view
+        $http.get(configs.WEB_API_URL + 'api/Student/GetStudentsByLangGrade/' + lang + '/' + grade)
+            .success(function (data) {
+                // With the data succesfully returned, we can resolve promise and we can access it in controller
+                deferredLangGrade.resolve(data);
+            })
+            .error(function (data) {
+                //let the function caller know the error
+                deferredLangGrade.reject(data);
+            });
+
+        return deferredLangGrade.promise;
+    };
+
     this.getStudentCIStatus = function studentService$getStudentCIStatus(studentID) {
         var deferredCI = $q.defer();
 

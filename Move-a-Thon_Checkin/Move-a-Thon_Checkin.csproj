@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="byGrade.html" />
+    <Content Include="byLanguage.html" />
     <Content Include="byteacherAM.html" />
     <Content Include="byteacherPM.html" />
     <Content Include="controllers\byTeacherCtrl.js" />

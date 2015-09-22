@@ -7,8 +7,8 @@
 
         <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
             <div class="list-group" ng-controller="gradeLangCtrl">
-                <a ng-repeat="grade in grades" ng-href="#/byLanguage/{{grade.short}}" class="list-group-item">
-                    {{ grade.long }}<i class="fa fa-chevron-right pull-right"></i>
+                <a ng-repeat="language in languages" ng-href="#/studentsbyPM/{{teacher.TeacherID}}" class="list-group-item">
+                    {{ language }}<i class="fa fa-chevron-right pull-right"></i>
                 </a>
             </div>
         </div>

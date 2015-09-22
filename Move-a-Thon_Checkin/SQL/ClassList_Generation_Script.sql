@@ -288,6 +288,38 @@ JOIN Classes C
 */
 --SELECT * FROM [dbo].[StudentList]
 
+
+--CHECK IN LIST
+
+--DROP VIEW vStudentCheckInList
+
+/*
+CREATE VIEW vStudentCheckInList AS
+SELECT 
+	S.StudentID
+	,S.[FirstName]
+	,S.[LastName]
+	,C.ClassCode
+	,C.Grade
+	,C.Language
+	,(
+		SELECT T.FullName
+		FROM Teachers T
+		WHERE T.TeacherID = C.AMTeacherID
+	) AS TeacherAM
+	,(
+		SELECT T.FullName
+		FROM Teachers T
+		WHERE T.TeacherID = C.PMTeacherID
+	) AS TeacherPM
+	,S.Notes	
+FROM Students S
+JOIN Classes C
+	ON C.ClassID = S.ClassID
+GO
+SELECT * FROM vStudentCheckInList
+*/
+
 /*
   CREATE VIEW TeachersAM AS
   SELECT 
