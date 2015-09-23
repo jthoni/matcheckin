@@ -21,5 +21,6 @@ namespace matApi.Models
         public string TeacherPM { get; set; }
         public string Notes { get; set; }
         public int StudentID { get; set; }
+        public int CheckedIn { get; set; }
     }
 }
