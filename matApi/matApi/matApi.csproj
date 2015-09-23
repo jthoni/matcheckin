@@ -135,6 +135,9 @@
     <Compile Include="Models\vCInStatu.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\vStudentCheckInList.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\vStudentList.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
@@ -165,6 +168,8 @@
       <DependentUpon>MATDataModel.edmx</DependentUpon>
       <LastGenOutput>MATDataModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\jsismatci - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\jsismatci - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

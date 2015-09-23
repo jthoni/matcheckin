@@ -5,6 +5,7 @@
     $scope.scopeTest = "This is the message from scopeTest";
     $rootScope.rootTest = "This is on the root";
     $scope.operationRunning = true;
+    //$scope.checkInCount;
 
     // Needed for the loading screen
     $rootScope.$on('$routeChangeStart', function () {
@@ -21,6 +22,8 @@
         studentService.getStudentList().then(
             function (results) {
                 $scope.students = results;
+                //$scope.getCheckInCount();
+                //$scope.getCheckedInStatus();
             },
             function (results) {
                 // TODO: Probably can't use the below in mobile environment
@@ -41,6 +44,20 @@
         )
     };
 
+
+
+    $scope.getCheckedInStatus = function studentCtrl$getCheckedInStatus(studentID){
+        for (var i = 0; i < $scope.students.length; i++){
+            if (studentService.getStudentCIStatus($scope.students[i].StudentID)){
+                $scope.students[i].checkedIn = true;
+            }
+            else
+            {
+                $scope.students[i].checkedIn = false;
+            };
+        };
+    };
+
     $scope.setTestValue = function (value) {
         $scope.scopeTest = value;
         $rootScope.rootTest = value;
@@ -50,6 +67,20 @@
         return $scope.scopeTest;
     };
 
+    //$scope.getCheckInCount = function detailsCtrl$getCheckInCount() {
+    //    studentService.getCheckInCount().then(
+    //        function (results) {
+    //            $scope.checkInCount = results[0];
+    //        },
+    //        function (results) {
+    //            // TODO: Probably can't use the below in mobile environment
+    //            $window.alert("Error getting Check in count!");
+    //        }
+    //    );
+    //}
+
+
     // Initialization
     $scope.loadStudents();
+    
 }]);

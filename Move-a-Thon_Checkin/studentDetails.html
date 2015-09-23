@@ -44,16 +44,54 @@
                         <tr>
                             <td>Checked in by</td>
                             <td>{{checkInDetails.CheckInBy}}</td>
-                        </tr>                        
+                        </tr>   
+                        <tr>
+                            <td colspan="2">
+                                <input value="Undo Check In" type="submit" ng-click="undoCheckin()">
+                            </td>
+                        </tr>                     
                     </table>
                 </div>
 
                 <!-- Checked in, show info -->
                 <div ng-hide="checkedIn">
-                    <h2>Check In!</h2>
                     <div>
-                        <img src="resources/check-mark-md.png" style="width:250px" />
+                        <form>
+                            <table border="1" align="center">
+                                <tr>
+                                    <td>
+                                        Shirt size (test):
+                                    </td>
+                                    <td>
+                                        <select ng-model="checkInForm.studentShirtSize" ng-options="item.sizeShort as item.sizeLong for item in shirtSizes"></select>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Notes:
+                                    </td>
+                                    <td>
+                                        <input type="text" name="notes" ng-model="checkInForm.notes">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input value="Check in" type="submit" ng-click="checkInStudent(checkInForm.studentShirtSize, checkInForm.notes)">
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </form>
+
+                        <div>
+                            {{myForm.firstName}} {{myForm.lastName}}
+                        </div>
                     </div>
+
+                    <!--<div>
+                        <img src="http://www.clker.com/cliparts/O/l/d/s/i/S/check-mark-hi.png" style="width:150px" />
+                    </div>-->
                 </div>
 
             </div>

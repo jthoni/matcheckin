@@ -79,7 +79,30 @@ namespace matApi.Controllers
         {
             var results = studenDb.vCInStatus.Where(s => s.StudentID == studentID);
             return results;
-        } 
+        }
+
+        [Route("api/Student/StudentCheckIn/{studentID}/{shirtSize}/{notes}")]
+        public IHttpActionResult StudentCheckIn(int studentID, string shirtSize,string notes)
+        {
+            string checkedInBy = "debugger";
+            studenDb.procStudentCheckIn(studentID, shirtSize, notes, checkedInBy);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("api/Student/undoCheckIn/{studentID}")]
+        public IHttpActionResult undoCheckIn(int studentID)
+        {
+            studenDb.procUndoCheckIn(studentID);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("api/Student/GetCheckCount")]
+        public ObjectResult<int?> GetCheckCount()
+        {
+            var results = studenDb.procCheckInCount();
+            return results;
+        }
+   
     }
    
 }

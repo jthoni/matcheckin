@@ -493,4 +493,25 @@ INSERT INTO CheckIn (StudentID, ShirtSize, CheckInTime, Notes, CheckInBy)
 VALUES (@StudentID, @ShirtSize, GETDATE(), @Notes, @CheckInBy)
 GO
 */
+/*
+CREATE PROCEDURE procUndoCheckIn @StudentID int
+AS
+DELETE FROM [dbo].[CheckIn]
+WHERE StudentID = @StudentID
+GO
+*/
 
+/*
+ DROP PROCEDURE procCheckInCount 
+  CREATE PROCEDURE procCheckInCount 
+	AS
+	BEGIN
+		SET NOCOUNT ON;
+		 SELECT COUNT(*) AS CheckInCount
+			 FROM vCInStatus
+	RETURN
+	END
+
+	EXEC procCheckInCount
+
+	*/

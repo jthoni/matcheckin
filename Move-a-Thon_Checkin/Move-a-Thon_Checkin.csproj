@@ -58,11 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="byGrade.html" />
+    <Content Include="byLangGrade.html" />
     <Content Include="byLanguage.html" />
     <Content Include="byteacherAM.html" />
     <Content Include="byteacherPM.html" />
     <Content Include="controllers\byTeacherCtrl.js" />
     <Content Include="controllers\gradeLangCtrl.js" />
+    <Content Include="controllers\homeViewCtrl.js" />
     <Content Include="controllers\MainCtrl.js" />
     <Content Include="controllers\matAppCtrl.js" />
     <Content Include="controllers\studentCtrl.js" />
@@ -131,6 +133,8 @@
     <Content Include="dist\js\mobile-angular-ui.gestures.min.js.map" />
     <Content Include="dist\js\mobile-angular-ui.migrate.min.js.map" />
     <Content Include="dist\js\mobile-angular-ui.min.js.map" />
+    <None Include="Properties\PublishProfiles\jsismat - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\jsismat - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

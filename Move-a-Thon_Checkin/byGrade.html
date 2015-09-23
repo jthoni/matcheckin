@@ -1,9 +1,9 @@
 ﻿<div style="background-color:white">
     <div class="scrollable" ui-state="searchBar">
-        <input ng-if="Ui.active('searchBar')"
+        <!--<input ng-if="Ui.active('searchBar')"
                type="search"
                class="form-control scrollable-header"
-               placeholder="Search.." />
+               placeholder="Search.." />-->
 
         <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
             <div class="list-group" ng-controller="gradeLangCtrl">
@@ -12,12 +12,12 @@
                 </a>
             </div>
         </div>
-        <a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
+        <!--<a class="btn btn-block btn-lg btn-primary scrollable-footer" ui-toggle='searchBar'>
             <i class="fa fa-search"></i>
             <span ui-hide="searchBar">Show</span>
             <span ui-show="searchBar">Hide</span>
             Search Bar
-        </a>
+        </a>-->
     </div>
 
 </div><!DOCTYPE html>

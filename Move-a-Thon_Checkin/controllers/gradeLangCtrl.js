@@ -34,7 +34,20 @@ matApp.controller('gradeLangCtrl', ['$scope', '$window', '$routeParams', 'studen
     });
 
     $scope.setStudentsByLangGrade = function gradeLangCtrl$setStudentsByLangGrade() {
-        $scope.studentsByLangGrade = StudentController.GetStudentsByLangGrade($routeParams.id)
+        studentService.getStudentByLangGrade($routeParams.lang, $routeParams.grade).then(
+            function (results) {
+                $scope.studentsByLangGrade = results;
+            },
+            function (results) {
+                // TODO: Probably can't use the below in mobile environment
+                $window.alert("Error getting Students by Lang/Grade!")
+            }
+        );
+    };
+
+    if ($routeParams.grade != undefined && $routeParams.lang != undefined) {
+        $scope.setStudentsByLangGrade();
+        console.log('do it');
     };
 
     // Initialization
