@@ -41,6 +41,18 @@
           <Property Name="Student_FirstName_LastName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Notes" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="Shirts">
+          <Key>
+            <PropertyRef Name="ShirtsID" />
+          </Key>
+          <Property Name="ShirtsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShirtPurpose" Type="nvarchar" MaxLength="50" />
+          <Property Name="YouthMedium" Type="int" />
+          <Property Name="YouthLarge" Type="int" />
+          <Property Name="Medium" Type="int" />
+          <Property Name="Large" Type="int" />
+          <Property Name="XL" Type="int" />
+        </EntityType>
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="StudentID" />
@@ -147,6 +159,14 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not ha
           <Parameter Name="TeacherID" Type="int" Mode="In" />
           <Parameter Name="AM" Type="bit" Mode="In" />
         </Function>
+        <Function Name="procIncrementShirts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShirtPurpose" Type="nvarchar" Mode="In" />
+          <Parameter Name="YouthMedium" Type="int" Mode="In" />
+          <Parameter Name="YouthLarge" Type="int" Mode="In" />
+          <Parameter Name="Medium" Type="int" Mode="In" />
+          <Parameter Name="Large" Type="int" Mode="In" />
+          <Parameter Name="XL" Type="int" Mode="In" />
+        </Function>
         <Function Name="procStudentCheckIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentID" Type="int" Mode="In" />
           <Parameter Name="ShirtSize" Type="nvarchar" Mode="In" />
@@ -160,6 +180,7 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not ha
           <EntitySet Name="CheckIn" EntityType="Self.CheckIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FlatFile" EntityType="Self.FlatFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shirts" EntityType="Self.Shirts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeachersAM" EntityType="Self.TeachersAM" store:Type="Views" store:Schema="dbo">
@@ -292,6 +313,15 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not ha
           <Parameter Name="StudentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="procCheckInCount" ReturnType="Collection(Int32)" />
+          <EntitySet Name="Shirts" EntityType="StudentDirectory2015Model.Shirt" />
+          <FunctionImport Name="procIncrementShirts">
+            <Parameter Name="ShirtPurpose" Mode="In" Type="String" />
+            <Parameter Name="YouthMedium" Mode="In" Type="Int32" />
+            <Parameter Name="YouthLarge" Mode="In" Type="Int32" />
+            <Parameter Name="Medium" Mode="In" Type="Int32" />
+            <Parameter Name="Large" Mode="In" Type="Int32" />
+            <Parameter Name="XL" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="vStudentList">
           <Key>
@@ -407,6 +437,18 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not ha
           <Property Name="TeacherAM" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TeacherPM" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Shirt">
+          <Key>
+            <PropertyRef Name="ShirtsID" />
+          </Key>
+          <Property Name="ShirtsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShirtPurpose" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="YouthMedium" Type="Int32" />
+          <Property Name="YouthLarge" Type="Int32" />
+          <Property Name="Medium" Type="Int32" />
+          <Property Name="Large" Type="Int32" />
+          <Property Name="XL" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -589,6 +631,20 @@ warning 6002: The table/view 'StudentDirectory2015.dbo.vStudentList' does not ha
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="procUndoCheckIn" FunctionName="StudentDirectory2015Model.Store.procUndoCheckIn" />
           <FunctionImportMapping FunctionImportName="procCheckInCount" FunctionName="StudentDirectory2015Model.Store.procCheckInCount" />
+          <EntitySetMapping Name="Shirts">
+            <EntityTypeMapping TypeName="StudentDirectory2015Model.Shirt">
+              <MappingFragment StoreEntitySet="Shirts">
+                <ScalarProperty Name="XL" ColumnName="XL" />
+                <ScalarProperty Name="Large" ColumnName="Large" />
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="YouthLarge" ColumnName="YouthLarge" />
+                <ScalarProperty Name="YouthMedium" ColumnName="YouthMedium" />
+                <ScalarProperty Name="ShirtPurpose" ColumnName="ShirtPurpose" />
+                <ScalarProperty Name="ShirtsID" ColumnName="ShirtsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="procIncrementShirts" FunctionName="StudentDirectory2015Model.Store.procIncrementShirts" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

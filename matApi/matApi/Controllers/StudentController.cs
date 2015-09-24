@@ -102,6 +102,20 @@ namespace matApi.Controllers
             var results = studenDb.procCheckInCount();
             return results;
         }
+
+        [Route("api/Student/GetShirtsInfo")]
+        public IQueryable<Shirt> GetShirtsInfo()
+        {
+            var results = studenDb.Shirts.OrderBy(u => u.ShirtsID);
+            return results;
+        }
+
+        [Route("api/Student/ShirtDistribution/{purpose}/{youthMedium}/{youthLarge}/{medium}/{large}/{xl}")]
+        public IHttpActionResult ShirtDistribution(string purpose, int youthMedium, int youthLarge, int medium, int large, int xl)
+        {
+            studenDb.procIncrementShirts(purpose, youthMedium, youthLarge, medium, large, xl);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
    
     }
    

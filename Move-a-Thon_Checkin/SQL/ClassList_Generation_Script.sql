@@ -259,6 +259,29 @@ ORDER BY C.ClassCode, S.[FirstName] ASC
 
 /*****************************************
 **
+**	Create the Shirts tables	
+**
+*****************************************/
+
+--DROP TABLE Shirts
+/*
+CREATE TABLE Shirts
+(
+	ShirtsID int NOT NULL IDENTITY (1,1),
+	ShirtPurpose nvarchar(50),
+	YouthMedium int,
+	YouthLarge int,
+	Medium int,
+	Large int,
+	XL int
+	CONSTRAINT Shirts_pk PRIMARY KEY CLUSTERED (ShirtsID)
+);
+*/
+
+
+
+/*****************************************
+**
 **	Create Views
 **
 *****************************************/
@@ -286,9 +309,34 @@ FROM Students S
 JOIN Classes C
 	ON C.ClassID = S.ClassID
 */
+/*
+CREATE VIEW vStudentList AS
+SELECT 
+	S.StudentID
+	,S.[FirstName]
+	,S.[LastName]
+	,C.ClassCode
+	,(
+		SELECT T.FullName
+		FROM Teachers T
+		WHERE T.TeacherID = C.AMTeacherID
+	) AS TeacherAM
+	,(
+		SELECT T.FullName
+		FROM Teachers T
+		WHERE T.TeacherID = C.PMTeacherID
+	) AS TeacherPM
+	,S.Notes	
+	, CASE WHEN EXISTS (SELECT StudentID FROM CheckIn WHERE CheckIn.StudentID = S.StudentID)
+		THEN 1
+		ELSE 0
+	 END AS CheckedIn
+FROM Students S
+JOIN Classes C
+	ON C.ClassID = S.ClassID
 --SELECT * FROM [dbo].[StudentList]
 
-
+*/
 --CHECK IN LIST
 
 --DROP VIEW vStudentCheckInList

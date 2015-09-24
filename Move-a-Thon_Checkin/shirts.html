@@ -1,0 +1,108 @@
+﻿<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="list-group text-center">
+            <div class="list-group-item list-group-item-home" ng-controller="shirtsCtrl">
+                <table class="table-responsive table table-striped table-condensed table-hover" align="center" style="width:30%;">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>YM</th>
+                            <th>YL</th>
+                            <th>M</th>
+                            <th>L</th>
+                            <th>XL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{shirtsOrdered.ShirtPurpose}}</td>
+                            <td>{{shirtsOrdered.YouthMedium}}</td>
+                            <td>{{shirtsOrdered.YouthLarge}}</td>
+                            <td>{{shirtsOrdered.Medium}}</td>
+                            <td>{{shirtsOrdered.Large}}</td>
+                            <td>{{shirtsOrdered.XL}}</td>
+                        </tr>
+                        <tr ng-repeat="shirts in shirtInfo">
+                            <td>{{shirts.ShirtPurpose}}</td>
+                            <td>{{shirts.YouthMedium}}</td>
+                            <td>{{shirts.YouthLarge}}</td>
+                            <td>{{shirts.Medium}}</td>
+                            <td>{{shirts.Large}}</td>
+                            <td>{{shirts.XL}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{{shirtsRemaining.ShirtPurpose}}</b></td>
+                            <td><b>{{shirtsRemaining.YouthMedium}}</b></td>
+                            <td><b>{{shirtsRemaining.YouthLarge}}</b></td>
+                            <td><b>{{shirtsRemaining.Medium}}</b></td>
+                            <td><b>{{shirtsRemaining.Large}}</b></td>
+                            <td><b>{{shirtsRemaining.XL}}</b></td>
+                        </tr>
+                    </tbody>    
+                </table>
+                <br />
+                <!-- Tabs -->
+                <h4>Tabs here</h4>
+                <div class='section'>
+                    <ui-state id='activeTab' default='1'></ui-state>
+                    <ul class="nav nav-tabs">
+                        <li ui-class="{'active': activeTab == 1}">
+                            <a ui-set="{'activeTab': 1}">Donations</a>
+                        </li>
+                        <li ui-class="{'active': activeTab == 2}">
+                            <a ui-set="{'activeTab': 2}">Volunteers</a>
+                        </li>
+                        <li ui-class="{'active': activeTab == 3}">
+                            <a ui-set="{'activeTab': 3}">Teachers</a>
+                        </li>
+                    </ul>
+                    <div ui-if="activeTab == 1">
+                        <h3 class="page-header">Donations</h3>
+                        <table border="1" align="center">
+                            <tr>
+                                <td>Youth Medium</td>
+                                <td><input type="button" value="Give!"</span></td>
+                            </tr>
+                            <tr>
+                                <td>Youth Large</td>
+                                <td><input type="button" value="Give!"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Medium</td>
+                                <td><input type="button" value="Give!"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Large</td>
+                                <td><input type="button" value="Give!"></span></td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td><input type="button" value="Give!"></span></td>
+                        </table>
+
+                    </div>
+                    <div ui-if="activeTab == 2">
+                        <h3 class="page-header">Volunteers</h3>
+                        <p>{{lorem}}</p>
+                    </div>
+                    <div ui-if="activeTab == 3">
+                        <h3 class="page-header">Teachers</h3>
+                        <p>{{lorem}}</p>
+                    </div>
+                    <!--<div class="btn-group justified nav-tabs">
+                        <a ui-set="{'activeTab': 1}"
+                           ui-class="{'active': activeTab == 1}" class="btn btn-default">Tab 1</a>
+                        <a ui-set="{'activeTab': 2}"
+                           ui-class="{'active': activeTab == 2}" class="btn btn-default">Tab 2</a>
+                        <a ui-set="{'activeTab': 3}"
+                           ui-class="{'active': activeTab == 3}" class="btn btn-default">Tab 3</a>
+                    </div>-->
+                </div>
+
+                <!-- end tabs-->
+            </div>
+
+        </div>
+    </div>
+</div>
+

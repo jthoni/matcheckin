@@ -126,6 +126,9 @@
     <Compile Include="Models\procGetStudentsByTeacherID_Result.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Shirt.cs">
+      <DependentUpon>MATDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Student.cs">
       <DependentUpon>MATDataModel.tt</DependentUpon>
     </Compile>

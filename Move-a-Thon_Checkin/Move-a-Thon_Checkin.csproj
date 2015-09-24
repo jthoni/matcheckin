@@ -67,6 +67,7 @@
     <Content Include="controllers\homeViewCtrl.js" />
     <Content Include="controllers\MainCtrl.js" />
     <Content Include="controllers\matAppCtrl.js" />
+    <Content Include="controllers\shirtsCtrl.js" />
     <Content Include="controllers\studentCtrl.js" />
     <Content Include="controllers\studentDetailsCtrl.js" />
     <Content Include="controllers\teacherCtrl.js" />
@@ -165,8 +166,10 @@
     <Content Include="login.html" />
     <Content Include="resources\logo.png" />
     <Content Include="scroll.html" />
+    <Content Include="services\shirtsService.js" />
     <Content Include="services\studentService.js" />
     <Content Include="services\teacherService.js" />
+    <Content Include="shirts.html" />
     <Content Include="sidebar.html" />
     <Content Include="SQL\ClassList_Generation_Script.sql" />
     <Content Include="storage.html" />

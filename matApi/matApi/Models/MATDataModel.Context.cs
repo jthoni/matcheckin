@@ -37,6 +37,7 @@ namespace matApi.Models
         public virtual DbSet<CheckIn> CheckIns { get; set; }
         public virtual DbSet<vCInStatu> vCInStatus { get; set; }
         public virtual DbSet<vStudentCheckInList> vStudentCheckInLists { get; set; }
+        public virtual DbSet<Shirt> Shirts { get; set; }
     
         public virtual ObjectResult<procGetStudentsByGrade_Result> procGetStudentsByGrade(string grade)
         {
@@ -115,6 +116,35 @@ namespace matApi.Models
         public virtual ObjectResult<Nullable<int>> procCheckInCount()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("procCheckInCount");
+        }
+    
+        public virtual int procIncrementShirts(string shirtPurpose, Nullable<int> youthMedium, Nullable<int> youthLarge, Nullable<int> medium, Nullable<int> large, Nullable<int> xL)
+        {
+            var shirtPurposeParameter = shirtPurpose != null ?
+                new ObjectParameter("ShirtPurpose", shirtPurpose) :
+                new ObjectParameter("ShirtPurpose", typeof(string));
+    
+            var youthMediumParameter = youthMedium.HasValue ?
+                new ObjectParameter("YouthMedium", youthMedium) :
+                new ObjectParameter("YouthMedium", typeof(int));
+    
+            var youthLargeParameter = youthLarge.HasValue ?
+                new ObjectParameter("YouthLarge", youthLarge) :
+                new ObjectParameter("YouthLarge", typeof(int));
+    
+            var mediumParameter = medium.HasValue ?
+                new ObjectParameter("Medium", medium) :
+                new ObjectParameter("Medium", typeof(int));
+    
+            var largeParameter = large.HasValue ?
+                new ObjectParameter("Large", large) :
+                new ObjectParameter("Large", typeof(int));
+    
+            var xLParameter = xL.HasValue ?
+                new ObjectParameter("XL", xL) :
+                new ObjectParameter("XL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("procIncrementShirts", shirtPurposeParameter, youthMediumParameter, youthLargeParameter, mediumParameter, largeParameter, xLParameter);
         }
     }
 }
