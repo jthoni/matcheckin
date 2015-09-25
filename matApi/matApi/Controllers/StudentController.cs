@@ -116,6 +116,14 @@ namespace matApi.Controllers
             studenDb.procIncrementShirts(purpose, youthMedium, youthLarge, medium, large, xl);
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        [Route("api/Student/GetCheckInInfo/{studentID}")]
+        public IQueryable<CheckIn> GetCheckInInfo(int studentID)
+        {
+            //var results = studenDb.Shirts.OrderBy(u => u.ShirtsID);
+            var results = studenDb.CheckIns.Where(s => s.StudentID == studentID);
+            return results;
+        }
    
     }
    

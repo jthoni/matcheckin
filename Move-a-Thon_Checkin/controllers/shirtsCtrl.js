@@ -1,5 +1,14 @@
 ﻿matApp.controller('shirtsCtrl', ['$scope', '$window', '$routeParams', 'shirtsService', function ($scope, $window, $routeParams, shirtsService) {
     // Variables
+    $scope.shirtGivenTeacher = false;
+    $scope.shirtGivenTeacherSize;
+
+    $scope.shirtGivenDonation = false;
+    $scope.shirtGivenDonationSize;
+
+    $scope.shirtGivenVolunteer= false;
+    $scope.shirtGivenVolunteerSize;
+    
     $scope.shirtInfo = {};
     $scope.shirtsOrdered = {
         ShirtPurpose: 'Ordered',
@@ -54,13 +63,86 @@
         shirtsService.shirtDistribution(purpose, youthMedium, youthLarge, medium, large, xl).then(
             function (results) {
                 // Success
-                console.log('foo');
+                console.log('Shirts updated');
             },
             function (results) {
                 // TODO: Probably can't use the below in mobile environment
                 $window.alert("Error updating shirt totals info!")
             }
         );
+    };
+
+    $scope.distribShirtStudent = function shirtsCtrl$distribShirtStudent(youthMedium, youthLarge, medium, large, xl) {
+        $scope.distributeShirts("Students", youthMedium, youthLarge, medium, large, xl);
+    };
+
+    $scope.distribTeachers = function shirtsCtrl$distribTeachers(youthMedium, youthLarge, medium, large, xl) {
+        $scope.distributeShirts("Teachers", youthMedium, youthLarge, medium, large, xl);
+        $scope.shirtGivenTeacher = true;
+        if (youthMedium != 0) {
+            $scope.shirtGivenTeacherSize = "Youth Medium";
+        }
+        else if (youthLarge != 0) {
+            $scope.shirtGivenTeacherSize = "Youth Large";
+        }
+        else if (medium != 0) {
+            $scope.shirtGivenTeacherSize = "Adult Medium";
+        }
+        else if (large != 0) {
+            $scope.shirtGivenTeacherSize = "Adult Large";
+        }
+        else if (xl != 0) {
+            $scope.shirtGivenTeacherSize = "XL";
+        }
+        else {
+            $window.alert('Invalid size in tshirt distribution!');
+        }
+    };
+
+    $scope.distribVolunteers = function shirtsCtrl$distribVolunteers(youthMedium, youthLarge, medium, large, xl) {
+        $scope.distributeShirts("Volunteers", youthMedium, youthLarge, medium, large, xl);
+        $scope.shirtGivenVolunteer = true;
+        if (youthMedium != 0) {
+            $scope.shirtGivenVolunteerSize = "Youth Medium";
+        }
+        else if (youthLarge != 0) {
+            $scope.shirtGivenVolunteerSize = "Youth Large";
+        }
+        else if (medium != 0) {
+            $scope.shirtGivenVolunteerSize = "Adult Medium";
+        }
+        else if (large != 0) {
+            $scope.shirtGivenVolunteerSize = "Adult Large";
+        }
+        else if (xl != 0) {
+            $scope.shirtGivenVolunteerSize = "XL";
+        }
+        else {
+            $window.alert('Invalid size in tshirt distribution!');
+        }
+    };
+
+    $scope.distribDonations = function shirtsCtrl$distribDonations(youthMedium, youthLarge, medium, large, xl) {
+        $scope.distributeShirts("Donations", youthMedium, youthLarge, medium, large, xl);
+        $scope.shirtGivenDonation = true;
+        if (youthMedium != 0) {
+            $scope.shirtGivenDonationSize = "Youth Medium";
+        }
+        else if (youthLarge != 0) {
+            $scope.shirtGivenDonationSize = "Youth Large";
+        }
+        else if (medium != 0) {
+            $scope.shirtGivenDonationSize = "Adult Medium";
+        }
+        else if (large != 0) {
+            $scope.shirtGivenDonationSize = "Adult Large";
+        }
+        else if (xl != 0) {
+            $scope.shirtGivenDonationSize = "XL";
+        }
+        else {
+            $window.alert('Invalid size in tshirt distribution!');
+        }
     };
 
     // tabs
@@ -75,7 +157,11 @@
     }, {
         title: 'Three',
         url: 'three.tpl.html'
-    }];
+    }, {
+        title: 'Four',
+        url: 'four.tpl.html'
+    }
+    ];
 
     $scope.currentTab = 'one.tpl.html';
 

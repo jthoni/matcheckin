@@ -42,7 +42,7 @@
                 </table>
                 <br />
                 <!-- Tabs -->
-                <h4>Tabs here</h4>
+                <!--<input type="text" ng-model="{{currentUser}}" ng-show="{{currentUser = null}}"> Please enter your name or email-->
                 <div class='section'>
                     <ui-state id='activeTab' default='1'></ui-state>
                     <ul class="nav nav-tabs">
@@ -55,39 +55,101 @@
                         <li ui-class="{'active': activeTab == 3}">
                             <a ui-set="{'activeTab': 3}">Teachers</a>
                         </li>
+                        <li ui-class="{'active': activeTab == 4}">
+                            <a ui-set="{'activeTab': 4}">Students</a>
+                        </li>
                     </ul>
                     <div ui-if="activeTab == 1">
                         <h3 class="page-header">Donations</h3>
-                        <table border="1" align="center">
-                            <tr>
-                                <td>Youth Medium</td>
-                                <td><input type="button" value="Give!"</span></td>
+                        <span ng-show="shirtGivenDonation"><font color="red">Donation shirt totals for size *{{shirtGivenDonationSize}}* have changed </font></span>
+                        <br />
+                        <span ng-show="shirtGivenDonation"><h6><font color="red">(Totals will update on page refresh)</h6></font></span>
+                            <table border="1" cellpadding="20" align="center">
+                                <tr>
+                                    <td>Youth Medium<br /><a ng-click="distribDonations(-1,0,0,0,0)">(return a shirt)</a></td>
+                                    <td width="70" height="40"><input type="button" value="+1" ng-click="distribDonations(1,0,0,0,0)" />
+                        </td>                                
                             </tr>
                             <tr>
-                                <td>Youth Large</td>
-                                <td><input type="button" value="Give!"></span></td>
+                                <td>Youth Large<br /><a ng-click="distribDonations(0,-1,0,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribDonations(0,1,0,0,0)" /></span></td>                                
                             </tr>
                             <tr>
-                                <td>Medium</td>
-                                <td><input type="button" value="Give!"></span></td>
+                                <td>Medium<br /><a ng-click="distribDonations(0,0,-1,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribDonations(0,0,1,0,0)" /></span></td>
                             </tr>
                             <tr>
-                                <td>Large</td>
-                                <td><input type="button" value="Give!"></span></td>
+                                <td>Large<br /><a ng-click="distribDonations(0,0,0,-1,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribDonations(0,0,0,1,0)" /></span></td>
                             </tr>
                             <tr>
-                                <td>XL</td>
-                                <td><input type="button" value="Give!"></span></td>
+                                <td>XL<br /><a ng-click="distribDonations(0,0,0,0,-1)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribDonations(0,0,0,0,1)" /></span></td>
                         </table>
 
                     </div>
                     <div ui-if="activeTab == 2">
                         <h3 class="page-header">Volunteers</h3>
-                        <p>{{lorem}}</p>
+                        <span ng-show="shirtGivenVolunteer"><font color="red">Volunteeer shirt totals for size *{{shirtGivenVolunteerSize}}* have changed </font></span>
+                        <br />
+                        <span ng-show="shirtGivenVolunteer"><h6><font color="red">(Totals will update on page refresh)</h6></font></span>
+                        <table border="1" cellpadding="20" align="center">
+                            <tr>
+                                <td>Youth Medium<br /><a ng-click="distribVolunteers(-1,0,0,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40">
+                                    <input type="button" value="+1" ng-click="distribVolunteers(1,0,0,0,0)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Youth Large<br /><a ng-click="distribVolunteers(0,-1,0,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribVolunteers(0,1,0,0,0)" /></span></td>
+                            </tr>
+                            <tr>
+                                <td>Medium<br /><a ng-click="distribVolunteers(0,0,-1,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribVolunteers(0,0,1,0,0)" /></span></td>
+                            </tr>
+                            <tr>
+                                <td>Large<br /><a ng-click="distribVolunteers(0,0,0,-1,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribVolunteers(0,0,0,1,0)" /></span></td>
+                            </tr>
+                            <tr>
+                                <td>XL<br /><a ng-click="distribVolunteers(0,0,0,0,-1)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribVolunteers(0,0,0,0,1)" /></span></td>
+                        </table>
                     </div>
                     <div ui-if="activeTab == 3">
                         <h3 class="page-header">Teachers</h3>
-                        <p>{{lorem}}</p>
+                        <span ng-show="shirtGivenTeacher"><font color="red">Teacher shirt totals for size *{{shirtGivenTeacherSize}}* have changed </font></span>
+                        <br />
+                        <span ng-show="shirtGivenTeacher"><h6><font color="red">(Totals will update on page refresh)</h6></font></span>
+                        <table border="1" cellpadding="20" align="center">
+                            <tr>
+                                <td>Youth Medium<br /><a ng-click="distribTeachers(-1,0,0,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40">
+                                    <input type="button" value="+1" ng-click="distribTeachers(1,0,0,0,0)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Youth Large<br /><a ng-click="distribTeachers(0,-1,0,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribTeachers(0,1,0,0,0)" /></span></td>
+                            </tr>
+                            <tr>
+                                <td>Medium<br /><a ng-click="distribTeachers(0,0,-1,0,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribTeachers(0,0,1,0,0)" /></span></td>
+                            </tr>
+                            <tr>
+                                <td>Large<br /><a ng-click="distribTeachers(0,0,0,-1,0)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribTeachers(0,0,0,1,0)" /></span></td>
+                            </tr>
+                            <tr>
+                                <td>XL<br /><a ng-click="distribTeachers(0,0,0,0,-1)">(return a shirt)</a></td>
+                                <td width="70" height="40"><input type="button" value="+1" ng-click="distribTeachers(0,0,0,0,1)" /></span></td>
+                        </table>
+                    </div>
+                    <div ui-if="activeTab == 4">
+                        <h3 class="page-header">Students</h3>
+                        <span><font color="red">Student shirts are recorded with check-in </font></span>
+                       
                     </div>
                     <!--<div class="btn-group justified nav-tabs">
                         <a ui-set="{'activeTab': 1}"

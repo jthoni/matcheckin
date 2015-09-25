@@ -5,6 +5,8 @@
     $scope.scopeTest = "This is the message from scopeTest";
     $rootScope.rootTest = "This is on the root";
     $scope.operationRunning = true;
+
+    $scope.currentUser = null;
     //$scope.checkInCount;
 
     // Needed for the loading screen
