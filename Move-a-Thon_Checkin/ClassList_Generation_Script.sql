@@ -259,58 +259,6 @@ ORDER BY C.ClassCode, S.[FirstName] ASC
 
 /*****************************************
 **
-**	Create the Shirts tables	
-**
-*****************************************/
-
---DROP TABLE Shirts
-/*
-CREATE TABLE Shirts
-(
-	ShirtsID int NOT NULL IDENTITY (1,1),
-	ShirtPurpose nvarchar(50),
-	YouthMedium int,
-	YouthLarge int,
-	Medium int,
-	Large int,
-	XL int
-	CONSTRAINT Shirts_pk PRIMARY KEY CLUSTERED (ShirtsID)
-);
-*/
-
-/*****************************************
-**
-**	Create the Pledges table
-**
-*****************************************/
-
---DROP TABLE Pledges
-
-/*
-CREATE TABLE Pledges
-(
-	PledgeID int NOT NULL IDENTITY (1,1),
-	StudentID int,
-	PaymentTypeID int,
-	DonorName NVARCHAR(50),
-	CheckNumber NVARCHAR(20),
-	FundsRec MONEY,
-	EmpMatching bit,
-	MatchAmmount MONEY,
-	MatchRec bit,
-	DateEntered datetime,
-	Submitted bit,
-	SubmittedDate datetime,
-	Notes nvarchar(200),
-	MyMat bit
-	CONSTRAINT Pledges_pk PRIMARY KEY CLUSTERED (PledgeID)
-);
-*/
-
-
-
-/*****************************************
-**
 **	Create Views
 **
 *****************************************/
@@ -338,64 +286,7 @@ FROM Students S
 JOIN Classes C
 	ON C.ClassID = S.ClassID
 */
-/*
-CREATE VIEW vStudentList AS
-SELECT 
-	S.StudentID
-	,S.[FirstName]
-	,S.[LastName]
-	,C.ClassCode
-	,(
-		SELECT T.FullName
-		FROM Teachers T
-		WHERE T.TeacherID = C.AMTeacherID
-	) AS TeacherAM
-	,(
-		SELECT T.FullName
-		FROM Teachers T
-		WHERE T.TeacherID = C.PMTeacherID
-	) AS TeacherPM
-	,S.Notes	
-	, CASE WHEN EXISTS (SELECT StudentID FROM CheckIn WHERE CheckIn.StudentID = S.StudentID)
-		THEN 1
-		ELSE 0
-	 END AS CheckedIn
-FROM Students S
-JOIN Classes C
-	ON C.ClassID = S.ClassID
 --SELECT * FROM [dbo].[StudentList]
-
-*/
---CHECK IN LIST
-
---DROP VIEW vStudentCheckInList
-
-/*
-CREATE VIEW vStudentCheckInList AS
-SELECT 
-	S.StudentID
-	,S.[FirstName]
-	,S.[LastName]
-	,C.ClassCode
-	,C.Grade
-	,C.Language
-	,(
-		SELECT T.FullName
-		FROM Teachers T
-		WHERE T.TeacherID = C.AMTeacherID
-	) AS TeacherAM
-	,(
-		SELECT T.FullName
-		FROM Teachers T
-		WHERE T.TeacherID = C.PMTeacherID
-	) AS TeacherPM
-	,S.Notes	
-FROM Students S
-JOIN Classes C
-	ON C.ClassID = S.ClassID
-GO
-SELECT * FROM vStudentCheckInList
-*/
 
 /*
   CREATE VIEW TeachersAM AS
@@ -419,9 +310,9 @@ SELECT * FROM vStudentCheckInList
 
 /******* Check in status ********/
 
---DROP VIEW vCInStatus
+--DROP VIEW CheckInStatus
  /*
-CREATE VIEW vCInStatus AS
+CREATE VIEW CheckInStatus AS
 SELECT 
 	CI.StudentID
 	,S.FirstName
@@ -570,25 +461,4 @@ INSERT INTO CheckIn (StudentID, ShirtSize, CheckInTime, Notes, CheckInBy)
 VALUES (@StudentID, @ShirtSize, GETDATE(), @Notes, @CheckInBy)
 GO
 */
-/*
-CREATE PROCEDURE procUndoCheckIn @StudentID int
-AS
-DELETE FROM [dbo].[CheckIn]
-WHERE StudentID = @StudentID
-GO
-*/
 
-/*
- DROP PROCEDURE procCheckInCount 
-  CREATE PROCEDURE procCheckInCount 
-	AS
-	BEGIN
-		SET NOCOUNT ON;
-		 SELECT COUNT(*) AS CheckInCount
-			 FROM vCInStatus
-	RETURN
-	END
-
-	EXEC procCheckInCount
-
-	*/
