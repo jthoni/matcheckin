@@ -115,6 +115,7 @@
     <Content Include="dist\js\mobile-angular-ui.migrate.js" />
     <Content Include="dist\js\mobile-angular-ui.migrate.min.js" />
     <Content Include="dist\js\mobile-angular-ui.min.js" />
+    <Content Include="filters\percent.js" />
     <Content Include="homeView.html" />
     <Content Include="lib\css\demo.css" />
     <Content Include="lib\fonts\fontawesome-webfont.eot" />
